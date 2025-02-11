@@ -10,7 +10,8 @@
     "build": "rimraf ./dist && tsc --build ./tsconfig.json",
     "start": "node ./dist/index.js",
     "prettify": "prettier --log-level warn --cache --write '{src/**/*,*}.{ts,tsx,js,json,yml,scss}'",
-    "types": "tsc --noEmit --project ./tsconfig.json"
+    "types": "tsc --noEmit --project ./tsconfig.json",
+    "lint": "eslint --cache --cache-location ./node_modules/.cache/.eslintcache"
   },
   "keywords": [],
   "author": "",

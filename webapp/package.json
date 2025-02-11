@@ -6,10 +6,10 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "lint": "eslint .",
     "preview": "vite preview",
     "prettify": "prettier --log-level warn --cache --write '{src/**/*,*}.{ts,tsx,js,json,yml,scss}'",
-    "types": "tsc --noEmit --project ./tsconfig.json && tsc --noEmit --project ./tsconfig.node.json"
+    "types": "tsc --noEmit --project ./tsconfig.json && tsc --noEmit --project ./tsconfig.node.json",
+    "lint": "eslint --cache --cache-location ./node_modules/.cache/.eslintcache"
   },
   "dependencies": {
     "@ideanick/backend": "workspace:*",
@@ -17,20 +17,17 @@
     "@trpc/client": "11.0.0-rc.755",
     "@trpc/react-query": "11.0.0-rc.755",
     "@trpc/server": "11.0.0-rc.755",
+    "eslint-plugin-jsx-a11y": "^6.10.2",
+    "eslint-plugin-react": "^7.37.4",
+    "eslint-plugin-react-hooks": "^5.1.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },
   "devDependencies": {
-    "@eslint/js": "^9.19.0",
     "@types/react": "^19.0.8",
     "@types/react-dom": "^19.0.3",
     "@vitejs/plugin-react": "^4.3.4",
-    "eslint": "^9.19.0",
-    "eslint-plugin-react-hooks": "^5.0.0",
-    "eslint-plugin-react-refresh": "^0.4.18",
     "globals": "^15.14.0",
-    "prettier": "^3.5.0",
-    "typescript": "~5.7.2",
     "typescript-eslint": "^8.22.0",
     "vite": "^6.1.0"
   }
