@@ -4,7 +4,6 @@ import { TextArea } from '../../components/TextArea'
 import { useFormik } from 'formik'
 
 export const NewIdeaPage = () => {
-
   const formik = useFormik({
     initialValues: {
       name: '',
@@ -12,11 +11,30 @@ export const NewIdeaPage = () => {
       description: '',
       text: '',
     },
+    validate: (values) => {
+      const errors: Partial<typeof values> = {}
+      if (!values.name.trim()) {
+        errors.name = 'Name is required'
+      }
+      if (!values.nick.trim()) {
+        errors.nick = 'Nick is required'
+      } else if (!values.nick.match(/^[a-z0-9-]+$/)) {
+        errors.nick = 'Nick may contain only lowercase letters, numbers and dashes'
+      }
+      if (!values.description.trim()) {
+        errors.description = 'Description is required'
+      }
+      if (!values.text.trim()) {
+        errors.text = 'Text is required'
+      } else if (values.text.length < 100) {
+        errors.text = 'Text should be at least 100 characters long'
+      }
+      return errors
+    },
     onSubmit: (values) => {
       console.info('Submitted', values)
-    }
+    },
   })
-
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => {
     formik.setFieldValue(e.target.name, e.target.value)
@@ -30,11 +48,22 @@ export const NewIdeaPage = () => {
           formik.handleSubmit()
         }}
       >
-        <Input name="name" label="Name" onChange={handleChange} value={formik.values.name} />
-        <Input name="nick" label="Nick" onChange={handleChange} value={formik.values.nick} />
-        <Input name="description" label="Description" onChange={handleChange} value={formik.values.description} />
-        <TextArea name="text" label="Text" onChange={handleChange} value={formik.values.text} />
-
+        <Input name="name" label="Name" error={formik.errors.name} onChange={handleChange} value={formik.values.name} />
+        <Input name="nick" label="Nick" error={formik.errors.nick} onChange={handleChange} value={formik.values.nick} />
+        <Input
+          name="description"
+          label="Description"
+          error={formik.errors.description}
+          onChange={handleChange}
+          value={formik.values.description}
+        />
+        <TextArea
+          name="text"
+          label="Text"
+          error={formik.errors.text}
+          onChange={handleChange}
+          value={formik.values.text}
+        />
         <button type="submit">Create Idea</button>
       </form>
     </Segment>
