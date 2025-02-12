@@ -35,6 +35,7 @@ export default [
           allow: ['info', 'error', 'warn'],
         },
       ],
+      'sort-imports': 'error',
     },
   },
 ]
