@@ -1,18 +1,25 @@
 import { Input } from '../../components/Input'
 import { Segment } from '../../components/Segment'
 import { TextArea } from '../../components/TextArea'
-import { useState } from 'react'
+import { useFormik } from 'formik'
 
 export const NewIdeaPage = () => {
-  const [state, setState] = useState({
-    name: '',
-    nick: '',
-    description: '',
-    text: '',
+
+  const formik = useFormik({
+    initialValues: {
+      name: '',
+      nick: '',
+      description: '',
+      text: '',
+    },
+    onSubmit: (values) => {
+      console.info('Submitted', values)
+    }
   })
 
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => {
-    setState((prev) => ({ ...prev, [e.target.name]: e.target.value }))
+    formik.setFieldValue(e.target.name, e.target.value)
   }
 
   return (
@@ -20,13 +27,13 @@ export const NewIdeaPage = () => {
       <form
         onSubmit={(e) => {
           e.preventDefault()
-          console.info('Submitted', state)
+          formik.handleSubmit()
         }}
       >
-        <Input name="name" label="Name" onChange={handleChange} value={state.name} />
-        <Input name="nick" label="Nick" onChange={handleChange} value={state.nick} />
-        <Input name="description" label="Description" onChange={handleChange} value={state.description} />
-        <TextArea name="text" label="Text" onChange={handleChange} value={state.text} />
+        <Input name="name" label="Name" onChange={handleChange} value={formik.values.name} />
+        <Input name="nick" label="Nick" onChange={handleChange} value={formik.values.nick} />
+        <Input name="description" label="Description" onChange={handleChange} value={formik.values.description} />
+        <TextArea name="text" label="Text" onChange={handleChange} value={formik.values.text} />
 
         <button type="submit">Create Idea</button>
       </form>
