@@ -36,10 +36,12 @@ export const NewIdeaPage = () => {
     },
   })
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     formik.setFieldValue(e.target.name, e.target.value)
   }
-
+  const handleBlur = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    formik.setFieldTouched(e.target.name)
+  }
   return (
     <Segment title="New Idea">
       <form
@@ -48,14 +50,29 @@ export const NewIdeaPage = () => {
           formik.handleSubmit()
         }}
       >
-        <Input name="name" label="Name" error={formik.errors.name} onChange={handleChange} value={formik.values.name} />
-        <Input name="nick" label="Nick" error={formik.errors.nick} onChange={handleChange} value={formik.values.nick} />
+        <Input
+          name="name"
+          label="Name"
+          error={formik.errors.name}
+          onChange={handleChange}
+          value={formik.values.name}
+          onBlur={handleBlur}
+        />
+        <Input
+          name="nick"
+          label="Nick"
+          error={formik.errors.nick}
+          onChange={handleChange}
+          value={formik.values.nick}
+          onBlur={handleBlur}
+        />
         <Input
           name="description"
           label="Description"
           error={formik.errors.description}
           onChange={handleChange}
           value={formik.values.description}
+          onBlur={handleBlur}
         />
         <TextArea
           name="text"
@@ -63,7 +80,9 @@ export const NewIdeaPage = () => {
           error={formik.errors.text}
           onChange={handleChange}
           value={formik.values.text}
+          onBlur={handleBlur}
         />
+        {!formik.isValid && !!formik.submitCount && <div style={{ color: 'red' }}>Some fields are invalid</div>}
         <button type="submit">Create Idea</button>
       </form>
     </Segment>
