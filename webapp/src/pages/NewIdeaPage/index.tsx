@@ -1,4 +1,6 @@
+import { Input } from '../../components/Input'
 import { Segment } from '../../components/Segment'
+import { TextArea } from '../../components/TextArea'
 import { useState } from 'react'
 
 export const NewIdeaPage = () => {
@@ -9,6 +11,10 @@ export const NewIdeaPage = () => {
     text: '',
   })
 
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => {
+    setState((prev) => ({ ...prev, [e.target.name]: e.target.value }))
+  }
+
   return (
     <Segment title="New Idea">
       <form
@@ -17,60 +23,10 @@ export const NewIdeaPage = () => {
           console.info('Submitted', state)
         }}
       >
-        <div style={{ marginBottom: 10 }}>
-          <label htmlFor="name">Name</label>
-          <br />
-          <input
-            type="text"
-            onChange={(e) => {
-              setState({ ...state, name: e.target.value })
-            }}
-            value={state.name}
-            name="name"
-            id="name"
-          />
-        </div>
-
-        <div style={{ marginBottom: 10 }}>
-          <label htmlFor="nick">Nick</label>
-          <br />
-          <input
-            type="text"
-            onChange={(e) => {
-              setState({ ...state, nick: e.target.value })
-            }}
-            value={state.nick}
-            name="nick"
-            id="nick"
-          />
-        </div>
-
-        <div style={{ marginBottom: 10 }}>
-          <label htmlFor="description">Description</label>
-          <br />
-          <input
-            type="text"
-            onChange={(e) => {
-              setState({ ...state, description: e.target.value })
-            }}
-            value={state.description}
-            name="description"
-            id="description"
-          />
-        </div>
-
-        <div style={{ marginBottom: 10 }}>
-          <label htmlFor="text">Text</label>
-          <br />
-          <textarea
-            onChange={(e) => {
-              setState({ ...state, text: e.target.value })
-            }}
-            value={state.text}
-            name="text"
-            id="text"
-          />
-        </div>
+        <Input name="name" label="Name" onChange={handleChange} value={state.name} />
+        <Input name="nick" label="Nick" onChange={handleChange} value={state.nick} />
+        <Input name="description" label="Description" onChange={handleChange} value={state.description} />
+        <TextArea name="text" label="Text" onChange={handleChange} value={state.text} />
 
         <button type="submit">Create Idea</button>
       </form>
