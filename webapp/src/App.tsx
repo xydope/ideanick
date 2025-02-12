@@ -1,8 +1,9 @@
 import './styles/global.scss'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import { getAllIdeasRoute, getViewIdeaRoute, viewIdeaRouteParams } from './lib/routes'
+import { getAllIdeasRoute, getNewIdeaRoute, getViewIdeaRoute, viewIdeaRouteParams } from './lib/routes'
 import { AllIdeasPage } from './pages/AllIdeasPage'
 import { Layout } from './components/Layout'
+import { NewIdeaPage } from './pages/NewIdeaPage'
 import { TrpcProvider } from './lib/TrpcProvider'
 import { ViewIdeaPage } from './pages/ViewIdeaPage'
 
@@ -13,6 +14,7 @@ export const App = () => {
         <Routes>
           <Route element={<Layout />}>
             <Route path={getAllIdeasRoute()} element={<AllIdeasPage />} />
+            <Route path={getNewIdeaRoute()} element={<NewIdeaPage />} />
             <Route path={getViewIdeaRoute(viewIdeaRouteParams)} element={<ViewIdeaPage />} />
           </Route>
         </Routes>
