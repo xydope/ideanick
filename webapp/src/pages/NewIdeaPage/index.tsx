@@ -1,11 +1,14 @@
 import { Input } from '../../components/Input'
 import { Segment } from '../../components/Segment'
 import { TextArea } from '../../components/TextArea'
+import { trpc } from '../../lib/trpc'
 import { useFormik } from 'formik'
 import { withZodSchema } from 'formik-validator-zod'
 import { z } from 'zod'
 
 export const NewIdeaPage = () => {
+  const createIdea = trpc.createIdea.useMutation()
+
   const formik = useFormik({
     initialValues: {
       name: '',
@@ -24,28 +27,8 @@ export const NewIdeaPage = () => {
         text: z.string().min(100, 'Text should be at least 100 characters long'),
       })
     ),
-    // validate: (values) => {
-    //   const errors: Partial<typeof values> = {}
-    //   if (!values.name.trim()) {
-    //     errors.name = 'Name is required'
-    //   }
-    //   if (!values.nick.trim()) {
-    //     errors.nick = 'Nick is required'
-    //   } else if (!values.nick.match(/^[a-z0-9-]+$/)) {
-    //     errors.nick = 'Nick may contain only lowercase letters, numbers and dashes'
-    //   }
-    //   if (!values.description.trim()) {
-    //     errors.description = 'Description is required'
-    //   }
-    //   if (!values.text.trim()) {
-    //     errors.text = 'Text is required'
-    //   } else if (values.text.length < 100) {
-    //     errors.text = 'Text should be at least 100 characters long'
-    //   }
-    //   return errors
-    // },
-    onSubmit: (values) => {
-      console.info('Submitted', values)
+    onSubmit: async (values) => {
+      await createIdea.mutate(values)
     },
   })
 
