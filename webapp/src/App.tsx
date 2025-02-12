@@ -1,3 +1,4 @@
+import './styles/global.scss'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { getAllIdeasRoute, getViewIdeaRoute, viewIdeaRouteParams } from './lib/routes'
 import { AllIdeasPage } from './pages/AllIdeasPage'
