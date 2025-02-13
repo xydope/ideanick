@@ -17,7 +17,7 @@ export const NewIdeaPage = () => {
     },
     validate: withZodSchema(zCreateIdeaTrpcInput),
     onSubmit: async (values) => {
-      await createIdea.mutate(values)
+      await createIdea.mutateAsync(values)
     },
   })
 
@@ -42,6 +42,7 @@ export const NewIdeaPage = () => {
           onChange={handleChange}
           value={formik.values.name}
           onBlur={handleBlur}
+          disabled={formik.isSubmitting}
         />
         <Input
           name="nick"
@@ -50,6 +51,7 @@ export const NewIdeaPage = () => {
           onChange={handleChange}
           value={formik.values.nick}
           onBlur={handleBlur}
+          disabled={formik.isSubmitting}
         />
         <Input
           name="description"
@@ -58,6 +60,7 @@ export const NewIdeaPage = () => {
           onChange={handleChange}
           value={formik.values.description}
           onBlur={handleBlur}
+          disabled={formik.isSubmitting}
         />
         <TextArea
           name="text"
@@ -66,9 +69,12 @@ export const NewIdeaPage = () => {
           onChange={handleChange}
           value={formik.values.text}
           onBlur={handleBlur}
+          disabled={formik.isSubmitting}
         />
         {!formik.isValid && !!formik.submitCount && <div style={{ color: 'red' }}>Some fields are invalid</div>}
-        <button type="submit">Create Idea</button>
+        <button type="submit" disabled={formik.isSubmitting}>
+          Create Idea
+        </button>
       </form>
     </Segment>
   )

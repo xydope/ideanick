@@ -1,4 +1,4 @@
-@import '../../styles/vars';
+@use '../../styles/vars';
 @import '../../styles/mixins';
 
 $breakpoint: '<=900px';
@@ -17,14 +17,14 @@ $breakpoint: '<=900px';
     overflow: auto;
     flex: 0 0 200px;
     padding: 20px 30px;
-    border-right: 1px solid $black;
+    border-right: 1px solid vars.$black;
 
     @include media($breakpoint) {
       overflow: visible;
       flex: 0 0 auto;
       height: auto;
       border-right: none;
-      border-bottom: 1px solid $black;
+      border-bottom: 1px solid vars.$black;
     }
 
     .logo {

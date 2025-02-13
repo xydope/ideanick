@@ -1,15 +1,14 @@
-import { useState } from 'react'
+import { InputHTMLAttributes, useState } from 'react'
 
-type InputProps = {
+interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   name: string
   label: string
   value: string
   error?: string
-  onBlur?: (e: React.ChangeEvent<HTMLInputElement>) => void
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
 }
 
-export const Input: React.FC<InputProps> = ({ name, label, onChange, value, error, onBlur }) => {
+export const Input: React.FC<InputProps> = ({ name, label, onChange, value, error, onBlur, ...otherProps }) => {
   const [isTouched, setIsTouched] = useState(false)
 
   return (
@@ -30,6 +29,7 @@ export const Input: React.FC<InputProps> = ({ name, label, onChange, value, erro
             onBlur(e)
           }
         }}
+        {...otherProps}
       />
       {error && isTouched && <div style={{ color: 'red' }}>{error}</div>}
     </div>

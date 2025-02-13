@@ -1,15 +1,14 @@
-import { useState } from 'react'
+import { InputHTMLAttributes, useState } from 'react'
 
-type InputProps = {
+interface InputProps extends InputHTMLAttributes<HTMLTextAreaElement> {
   name: string
   label: string
   value: string
   error?: string
-  onBlur?: (e: React.ChangeEvent<HTMLTextAreaElement>) => void
   onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void
 }
 
-export const TextArea: React.FC<InputProps> = ({ name, label, onChange, value, error, onBlur }) => {
+export const TextArea: React.FC<InputProps> = ({ name, label, onChange, value, error, onBlur, ...otherProps }) => {
   const [isTouched, setIsTouched] = useState(false)
 
   return (
@@ -29,6 +28,7 @@ export const TextArea: React.FC<InputProps> = ({ name, label, onChange, value, e
             onBlur(e)
           }
         }}
+        {...otherProps}
       />
       {error && isTouched && <div style={{ color: 'red' }}>{error}</div>}
     </div>
