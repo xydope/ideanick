@@ -6,16 +6,22 @@
   "private": true,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "ts-node-dev --rs src/index.ts",
+    "dev": "ts-node-dev --watch ./.env --rs src/index.ts",
     "build": "rimraf ./dist && tsc --build ./tsconfig.json",
     "start": "node ./dist/index.js",
     "prettify": "prettier --log-level warn --cache --write '{src/**/*,*}.{ts,tsx,js,json,yml,scss}'",
     "types": "tsc --noEmit --project ./tsconfig.json",
-    "lint": "eslint --cache --cache-location ./node_modules/.cache/.eslintcache"
+    "lint": "eslint --cache --cache-location ./node_modules/.cache/.eslintcache",
+    "pmd": "prisma migrate dev",
+    "pgc": "prisma generate",
+    "prepare": "pnpm pgc"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "prisma": {
+    "schema": "./src/prisma/schema.prisma"
+  },
   "devDependencies": {
     "@types/cors": "^2.8.17",
     "@types/express": "^5.0.0",
