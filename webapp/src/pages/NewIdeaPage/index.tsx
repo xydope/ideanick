@@ -8,7 +8,6 @@ import { zCreateIdeaTrpcInput } from '@ideanick/backend/src/router/createIdea/in
 
 export const NewIdeaPage = () => {
   const createIdea = trpc.createIdea.useMutation()
-
   const formik = useFormik({
     initialValues: {
       name: '',
