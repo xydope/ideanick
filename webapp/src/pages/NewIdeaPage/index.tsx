@@ -1,5 +1,6 @@
 import { Alert } from '../../components/Alert'
 import { Button } from '../../components/Button'
+import { FormItems } from '../../components/FormItems/intex'
 import { Input } from '../../components/Input'
 import { Segment } from '../../components/Segment'
 import { TextArea } from '../../components/TextArea'
@@ -8,7 +9,6 @@ import { useFormik } from 'formik'
 import { useState } from 'react'
 import { withZodSchema } from 'formik-validator-zod'
 import { zCreateIdeaTrpcInput } from '@ideanick/backend/src/router/createIdea/input'
-
 
 export const NewIdeaPage = () => {
   const [successMessageVisible, setSuccessMessageVisible] = useState(false)
@@ -53,47 +53,49 @@ export const NewIdeaPage = () => {
           formik.handleSubmit()
         }}
       >
-        <Input
-          name="name"
-          label="Name"
-          error={formik.errors.name}
-          onChange={handleChange}
-          value={formik.values.name}
-          onBlur={handleBlur}
-          disabled={formik.isSubmitting}
-        />
-        <Input
-          name="nick"
-          label="Nick"
-          error={formik.errors.nick}
-          onChange={handleChange}
-          value={formik.values.nick}
-          onBlur={handleBlur}
-          disabled={formik.isSubmitting}
-        />
-        <Input
-          name="description"
-          label="Description"
-          maxWidth={500}
-          error={formik.errors.description}
-          onChange={handleChange}
-          value={formik.values.description}
-          onBlur={handleBlur}
-          disabled={formik.isSubmitting}
-        />
-        <TextArea
-          name="text"
-          label="Text"
-          error={formik.errors.text}
-          onChange={handleChange}
-          value={formik.values.text}
-          onBlur={handleBlur}
-          disabled={formik.isSubmitting}
-        />
-        {!formik.isValid && !!formik.submitCount && <div style={{ color: 'red' }}>Some fields are invalid</div>}
-        {!!submittingError && <Alert color="red">{submittingError}</Alert>}
-        {successMessageVisible && <Alert color="green">Idea created!</Alert>}
-        <Button loading={formik.isSubmitting}>Create Idea</Button>
+        <FormItems>
+          <Input
+            name="name"
+            label="Name"
+            error={formik.errors.name}
+            onChange={handleChange}
+            value={formik.values.name}
+            onBlur={handleBlur}
+            disabled={formik.isSubmitting}
+          />
+          <Input
+            name="nick"
+            label="Nick"
+            error={formik.errors.nick}
+            onChange={handleChange}
+            value={formik.values.nick}
+            onBlur={handleBlur}
+            disabled={formik.isSubmitting}
+          />
+          <Input
+            name="description"
+            label="Description"
+            maxWidth={500}
+            error={formik.errors.description}
+            onChange={handleChange}
+            value={formik.values.description}
+            onBlur={handleBlur}
+            disabled={formik.isSubmitting}
+          />
+          <TextArea
+            name="text"
+            label="Text"
+            error={formik.errors.text}
+            onChange={handleChange}
+            value={formik.values.text}
+            onBlur={handleBlur}
+            disabled={formik.isSubmitting}
+          />
+          {!formik.isValid && !!formik.submitCount && <div style={{ color: 'red' }}>Some fields are invalid</div>}
+          {!!submittingError && <Alert color="red">{submittingError}</Alert>}
+          {successMessageVisible && <Alert color="green">Idea created!</Alert>}
+          <Button loading={formik.isSubmitting}>Create Idea</Button>
+        </FormItems>
       </form>
     </Segment>
   )
