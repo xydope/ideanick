@@ -1,4 +1,6 @@
 import { InputHTMLAttributes, useState } from 'react'
+import cn from 'classnames'
+import css from './index.module.scss'
 
 interface InputProps extends InputHTMLAttributes<HTMLTextAreaElement> {
   name: string
@@ -8,14 +10,34 @@ interface InputProps extends InputHTMLAttributes<HTMLTextAreaElement> {
   onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void
 }
 
-export const TextArea: React.FC<InputProps> = ({ name, label, onChange, value, error, onBlur, ...otherProps }) => {
+export const TextArea: React.FC<InputProps> = ({
+  name,
+  label,
+  onChange,
+  value,
+  error,
+  onBlur,
+  ...otherProps
+}) => {
   const [isTouched, setIsTouched] = useState(false)
+  const invalid = error && isTouched
 
   return (
-    <div style={{ marginBottom: 10 }}>
-      <label htmlFor={name}>{label}</label>
-      <br />
+    <div
+      className={cn({
+        [css.field]: true,
+        [css.disabled]: otherProps.disabled,
+      })}
+      style={{ marginBottom: 10 }}
+    >
+      <label className={css.label} htmlFor={name}>
+        {label}
+      </label>
       <textarea
+        className={cn({
+          [css.input]: true,
+          [css.invalid]: invalid,
+        })}
         onChange={onChange}
         value={value}
         name={name.toLowerCase()}
@@ -30,7 +52,7 @@ export const TextArea: React.FC<InputProps> = ({ name, label, onChange, value, e
         }}
         {...otherProps}
       />
-      {error && isTouched && <div style={{ color: 'red' }}>{error}</div>}
+      {invalid && isTouched && <div style={{ color: 'red' }}>{error}</div>}
     </div>
   )
 }

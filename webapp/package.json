@@ -19,6 +19,7 @@
     "@trpc/client": "11.0.0-rc.755",
     "@trpc/react-query": "11.0.0-rc.755",
     "@trpc/server": "11.0.0-rc.755",
+    "classnames": "^2.5.1",
     "eslint-plugin-jsx-a11y": "^6.10.2",
     "eslint-plugin-react": "^7.37.4",
     "eslint-plugin-react-hooks": "^5.1.0",
