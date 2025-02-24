@@ -1,5 +1,5 @@
 import { Link, Outlet } from 'react-router-dom'
-import { getAllIdeasRoute, getSignUpRoute } from '../../lib/routes'
+import { getAllIdeasRoute, getSignInRoute, getSignUpRoute } from '../../lib/routes'
 import css from './index.module.scss'
 import { getNewIdeaRoute } from '../../lib/routes'
 
@@ -20,8 +20,13 @@ export const Layout = () => {
             </Link>
           </li>
           <li className={css.item}>
+            <Link className={css.link} to={getSignInRoute()}>
+              Sign In
+            </Link>
+          </li>
+          <li className={css.item}>
             <Link className={css.link} to={getSignUpRoute()}>
-              SignUp
+              Sign Up
             </Link>
           </li>
         </ul>
