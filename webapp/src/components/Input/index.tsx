@@ -11,7 +11,16 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
 }
 
-export const Input: React.FC<InputProps> = ({ name, label, onChange, value, error, onBlur, maxWidth, ...otherProps }) => {
+export const Input: React.FC<InputProps> = ({
+  name,
+  label,
+  onChange,
+  value,
+  error,
+  onBlur,
+  maxWidth,
+  ...otherProps
+}) => {
   const [isTouched, setIsTouched] = useState(false)
   const invalid = error && isTouched
 
@@ -34,8 +43,8 @@ export const Input: React.FC<InputProps> = ({ name, label, onChange, value, erro
         type="text"
         onChange={onChange}
         value={value}
-        name={name.toLowerCase()}
-        id={name.toLowerCase()}
+        name={name}
+        id={name}
         onBlur={(e) => {
           if (!isTouched) {
             setIsTouched(true)

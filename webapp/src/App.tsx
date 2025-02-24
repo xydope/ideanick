@@ -1,9 +1,10 @@
 import './styles/global.scss'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import { getAllIdeasRoute, getNewIdeaRoute, getViewIdeaRoute, viewIdeaRouteParams } from './lib/routes'
+import { getAllIdeasRoute, getNewIdeaRoute, getSignUpRoute, getViewIdeaRoute, viewIdeaRouteParams } from './lib/routes'
 import { AllIdeasPage } from './pages/AllIdeasPage'
 import { Layout } from './components/Layout'
 import { NewIdeaPage } from './pages/NewIdeaPage'
+import { SignUpPage } from './pages/SignUpPage'
 import { TrpcProvider } from './lib/TrpcProvider'
 import { ViewIdeaPage } from './pages/ViewIdeaPage'
 
@@ -16,6 +17,7 @@ export const App = () => {
             <Route path={getAllIdeasRoute()} element={<AllIdeasPage />} />
             <Route path={getNewIdeaRoute()} element={<NewIdeaPage />} />
             <Route path={getViewIdeaRoute(viewIdeaRouteParams)} element={<ViewIdeaPage />} />
+            <Route path={getSignUpRoute()} element={<SignUpPage />} />
           </Route>
         </Routes>
       </BrowserRouter>
