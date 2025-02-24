@@ -1,4 +1,5 @@
 import { getPasswordHash } from '../../utils/getPasswordHash'
+import { signJWT } from '../../utils/signJWT'
 import { trpc } from '../../lib/trpc'
 import { zSignInTrpcInput } from './input'
 
@@ -13,5 +14,7 @@ export const signInTrpcRoute = trpc.procedure.input(zSignInTrpcInput).mutation(a
     throw new Error('Missing user or password')
   }
 
-  return true
+  const token = signJWT(user.id)
+
+  return { token }
 })

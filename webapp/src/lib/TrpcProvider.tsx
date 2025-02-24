@@ -1,4 +1,5 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import Cookies from 'js-cookie'
 import { httpBatchLink } from '@trpc/client'
 import superjson from 'superjson'
 import { trpc } from './trpc'
@@ -22,6 +23,12 @@ export function TrpcProvider({ children }: { children: React.ReactNode }) {
         httpBatchLink({
           url: 'http://localhost:3000/trpc',
           transformer: superjson,
+          headers: () => {
+            const token = Cookies.get('token')
+            return {
+              ...(token && { authorization: `Bearer ${token}` }),
+            }
+          },
         }),
       ],
     })

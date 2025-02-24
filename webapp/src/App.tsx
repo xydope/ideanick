@@ -4,6 +4,7 @@ import {
   getAllIdeasRoute,
   getNewIdeaRoute,
   getSignInRoute,
+  getSignOutRoute,
   getSignUpRoute,
   getViewIdeaRoute,
   viewIdeaRouteParams,
@@ -12,6 +13,7 @@ import { AllIdeasPage } from './pages/AllIdeasPage'
 import { Layout } from './components/Layout'
 import { NewIdeaPage } from './pages/NewIdeaPage'
 import { SignInPage } from './pages/SignInPage'
+import { SignOutPage } from './pages/SignOutPage'
 import { SignUpPage } from './pages/SignUpPage'
 import { TrpcProvider } from './lib/TrpcProvider'
 import { ViewIdeaPage } from './pages/ViewIdeaPage'
@@ -21,6 +23,7 @@ export const App = () => {
     <TrpcProvider>
       <BrowserRouter>
         <Routes>
+          <Route path={getSignOutRoute()} element={<SignOutPage />}></Route>
           <Route element={<Layout />}>
             <Route path={getAllIdeasRoute()} element={<AllIdeasPage />} />
             <Route path={getNewIdeaRoute()} element={<NewIdeaPage />} />

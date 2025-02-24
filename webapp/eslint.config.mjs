@@ -48,6 +48,7 @@ export default tseslint.config(
           skipStrings: true,
         },
       ],
+      'no-unused-variable': 'off',
       'no-console': [
         'error',
         {

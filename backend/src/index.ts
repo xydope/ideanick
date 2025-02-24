@@ -1,4 +1,5 @@
 import { AppContext, createAppContext } from './lib/ctx'
+import { applyPassportToExpressApp } from './lib/passport'
 import { applyTrpcToExpressApp } from './lib/trpc'
 import cors from 'cors'
 import express from 'express'
@@ -18,8 +19,9 @@ import { trpcRouter } from './router'
     expressApp.get('/ping', (req, res) => {
       res.send('Pong!')
     })
+    applyPassportToExpressApp(expressApp, ctx)
 
-    applyTrpcToExpressApp(expressApp, ctx, trpcRouter)
+    await applyTrpcToExpressApp(expressApp, ctx, trpcRouter)
 
     expressApp.listen(PORT, () => {
       console.info(`Listening at http://localhost:${PORT}`)
