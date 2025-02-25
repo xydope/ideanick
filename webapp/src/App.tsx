@@ -1,7 +1,9 @@
 import './styles/global.scss'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import {
+  editIdeaRouteParams,
   getAllIdeasRoute,
+  getEditIdeaRoute,
   getNewIdeaRoute,
   getSignInRoute,
   getSignOutRoute,
@@ -10,6 +12,7 @@ import {
   viewIdeaRouteParams,
 } from './lib/routes'
 import { AllIdeasPage } from './pages/AllIdeasPage'
+import { EditIdeaPage } from './pages/EditIdeaPage'
 import { Layout } from './components/Layout'
 import { NewIdeaPage } from './pages/NewIdeaPage'
 import { SignInPage } from './pages/SignInPage'
@@ -30,6 +33,7 @@ export const App = () => {
             <Route path={getViewIdeaRoute(viewIdeaRouteParams)} element={<ViewIdeaPage />} />
             <Route path={getSignUpRoute()} element={<SignUpPage />} />
             <Route path={getSignInRoute()} element={<SignInPage />} />
+            <Route path={getEditIdeaRoute(editIdeaRouteParams)} element={<EditIdeaPage />} />
           </Route>
         </Routes>
       </BrowserRouter>
