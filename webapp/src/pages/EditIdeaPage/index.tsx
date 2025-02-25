@@ -9,27 +9,21 @@ import { TextArea } from '../../components/TextArea'
 import type { TrpcRouterOutput } from '@ideanick/backend/src/router'
 import pick from 'lodash/pick'
 import { trpc } from '../../lib/trpc'
-import { useFormik } from 'formik'
-import { useState } from 'react'
-import { withZodSchema } from 'formik-validator-zod'
+import { useForm } from '../../hooks/useForm'
+import { useMe } from '../../lib/ctx'
 import { zUpdateIdeaTrpcInput } from '@ideanick/backend/src/router/updateIdea/input'
 
 const EditIdeaComponent = ({ idea }: { idea: NonNullable<TrpcRouterOutput['getIdea']['idea']> }) => {
   const navigate = useNavigate()
-  const [submittingError, setSubmittingError] = useState<string | null>(null)
   const updateIdea = trpc.updateIdea.useMutation()
-  const formik = useFormik({
+  const { formik, buttonProps, alertProps } = useForm({
     initialValues: pick(idea, ['name', 'nick', 'description', 'text']),
-    validate: withZodSchema(zUpdateIdeaTrpcInput.omit({ ideaId: true })),
+    validationSchema: zUpdateIdeaTrpcInput.omit({ ideaId: true }),
     onSubmit: async (values) => {
-      try {
-        setSubmittingError(null)
-        await updateIdea.mutateAsync({ ideaId: idea.id, ...values })
-        navigate(getViewIdeaRoute({ ideaNick: values.nick }))
-      } catch (err: unknown) {
-        setSubmittingError((err as Error).message)
-      }
+      await updateIdea.mutateAsync({ ideaId: idea.id, ...values })
+      navigate(getViewIdeaRoute({ ideaNick: values.nick }))
     },
+    successMessage: false,
   })
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -80,9 +74,8 @@ const EditIdeaComponent = ({ idea }: { idea: NonNullable<TrpcRouterOutput['getId
             onBlur={handleBlur}
             disabled={formik.isSubmitting}
           />
-          {!formik.isValid && !!formik.submitCount && <Alert color="red">Some fields are invalid</Alert>}
-          {submittingError && <Alert color="red">{submittingError}</Alert>}
-          <Button loading={formik.isSubmitting}>Update Idea</Button>
+          <Alert {...alertProps} />
+          <Button {...buttonProps}>Edit Idea</Button>
         </FormItems>
       </form>
     </Segment>
@@ -95,9 +88,9 @@ export const EditIdeaPage = () => {
   const getIdeaResult = trpc.getIdea.useQuery({
     ideaNick,
   })
-  const getMeResult = trpc.getMe.useQuery()
+  const me = useMe()
 
-  if (getIdeaResult.isLoading || getIdeaResult.isFetching || getMeResult.isLoading || getMeResult.isFetching) {
+  if (getIdeaResult.isLoading || getIdeaResult.isFetching) {
     return <span>Loading...</span>
   }
 
@@ -105,12 +98,7 @@ export const EditIdeaPage = () => {
     return <span>Error: {getIdeaResult.error.message}</span>
   }
 
-  if (getMeResult.isError) {
-    return <span>Error: {getMeResult.error.message}</span>
-  }
-
   const idea = getIdeaResult.data?.idea
-  const me = getMeResult.data?.me
 
   if (!me) {
     return <span>Only for authorized</span>

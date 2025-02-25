@@ -4,19 +4,17 @@ import { Segment } from '../../components/Segment'
 import css from './index.module.scss'
 import { format } from 'date-fns'
 import { trpc } from '../../lib/trpc'
+import { useMe } from '../../lib/ctx'
 import { useParams } from 'react-router-dom'
 
 export const ViewIdeaPage = () => {
   const { ideaNick } = useParams() as ViewIdeaRouteParams
-  const { data, isLoading, isError, error } = trpc.getIdea.useQuery({ ideaNick })
+  const { data, isLoading } = trpc.getIdea.useQuery({ ideaNick })
 
-  const getMeResult = trpc.getMe.useQuery()
+  const me = useMe()
 
   if (isLoading) {
     return <span>Loading...</span>
-  }
-  if (isError) {
-    return <span>Error: {error.message}</span>
   }
 
   if (!data || !data.idea) {
@@ -24,7 +22,6 @@ export const ViewIdeaPage = () => {
   }
 
   const idea = data.idea
-  const me = getMeResult.data?.me
 
   return (
     <Segment title={idea.name} description={idea.description}>
