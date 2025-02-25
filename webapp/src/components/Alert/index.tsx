@@ -1,7 +1,7 @@
 import cn from 'classnames'
 import css from './index.module.scss'
 
-export type AlertProps = { color: 'red' | 'green'; hidden: boolean; children: React.ReactNode }
+export type AlertProps = { color: 'red' | 'green'; hidden?: boolean; children: React.ReactNode }
 
 export const Alert = ({ color, children, hidden }: AlertProps) => {
   if (hidden) {
