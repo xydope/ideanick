@@ -30,10 +30,10 @@
     "@types/node": "^22.13.1",
     "@types/passport": "^1.0.17",
     "@types/passport-jwt": "^4.0.1",
-    "prisma": "^6.3.1"
+    "prisma": "^6.4.1"
   },
   "dependencies": {
-    "@prisma/client": "^6.3.1",
+    "@prisma/client": "^6.4.1",
     "@trpc/server": "11.0.0-rc.755",
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
