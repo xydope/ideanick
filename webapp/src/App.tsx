@@ -16,6 +16,7 @@ import { AppContextProvider } from './lib/ctx'
 import { EditIdeaPage } from './pages/EditIdeaPage'
 import { Layout } from './components/Layout'
 import { NewIdeaPage } from './pages/NewIdeaPage'
+import { NotFoundPage } from './pages/NotFoundPage'
 import { SignInPage } from './pages/SignInPage'
 import { SignOutPage } from './pages/SignOutPage'
 import { SignUpPage } from './pages/SignUpPage'
@@ -36,6 +37,7 @@ export const App = () => {
               <Route path={getSignUpRoute()} element={<SignUpPage />} />
               <Route path={getSignInRoute()} element={<SignInPage />} />
               <Route path={getEditIdeaRoute(editIdeaRouteParams)} element={<EditIdeaPage />} />
+              <Route path="*" element={<NotFoundPage />} />
             </Route>
           </Routes>
         </BrowserRouter>
