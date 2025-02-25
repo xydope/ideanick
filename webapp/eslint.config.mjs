@@ -56,6 +56,13 @@ export default tseslint.config(
         },
       ],
       'sort-imports': 'error',
+      'no-restricted-syntax': [
+        'error',
+        {
+          selector: '[object.type=MetaProperty][property.name=env]',
+          message: 'Use instead import { env } from "lib/env"',
+        },
+      ],
     },
   }
 )
