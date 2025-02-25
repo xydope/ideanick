@@ -36,6 +36,7 @@ export default [
         },
       ],
       'sort-imports': 'error',
+      'no-process-env': 'error'
     },
   },
 ]
