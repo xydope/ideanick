@@ -2,7 +2,7 @@ import { type AppContext, useAppContext } from './ctx'
 import React, { useEffect } from 'react'
 import type { UseTRPCQueryResult, UseTRPCQuerySuccessResult } from '@trpc/react-query/shared'
 // import { UseQueryResult } from '@tanstack/react-query'
-import { NotFoundPage } from '../pages/NotFoundPage'
+import { NotFoundPage } from '../pages/other/NotFoundPage'
 import { getAllIdeasRoute } from './routes'
 import { useNavigate } from 'react-router-dom'
 

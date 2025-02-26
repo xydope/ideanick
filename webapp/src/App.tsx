@@ -11,17 +11,17 @@ import {
   getViewIdeaRoute,
   viewIdeaRouteParams,
 } from './lib/routes'
-import { AllIdeasPage } from './pages/AllIdeasPage'
+import { AllIdeasPage } from './pages/ideas/AllIdeasPage'
 import { AppContextProvider } from './lib/ctx'
-import { EditIdeaPage } from './pages/EditIdeaPage'
+import { EditIdeaPage } from './pages/ideas/EditIdeaPage'
 import { Layout } from './components/Layout'
-import { NewIdeaPage } from './pages/NewIdeaPage'
-import { NotFoundPage } from './pages/NotFoundPage'
-import { SignInPage } from './pages/SignInPage'
-import { SignOutPage } from './pages/SignOutPage'
-import { SignUpPage } from './pages/SignUpPage'
+import { NewIdeaPage } from './pages/ideas/NewIdeaPage'
+import { NotFoundPage } from './pages/other/NotFoundPage'
+import { SignInPage } from './pages/auth/SignInPage'
+import { SignOutPage } from './pages/auth/SignOutPage'
+import { SignUpPage } from './pages/auth/SignUpPage'
 import { TrpcProvider } from './lib/TrpcProvider'
-import { ViewIdeaPage } from './pages/ViewIdeaPage'
+import { ViewIdeaPage } from './pages/ideas/ViewIdeaPage'
 
 export const App = () => {
   return (
