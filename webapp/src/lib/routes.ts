@@ -6,14 +6,15 @@ export const getAllIdeasRoute = () => '/'
 
 export const viewIdeaRouteParams = getRouteParams({ ideaNick: true })
 export type ViewIdeaRouteParams = typeof viewIdeaRouteParams
-
 export const getViewIdeaRoute = ({ ideaNick }: ViewIdeaRouteParams) => `/ideas/${ideaNick}`
 
 export const getNewIdeaRoute = () => `/ideas/new`
-export const getSignUpRoute = () => `/signup`
-export const getSignInRoute = () => `/signin`
-export const getSignOutRoute = () => `/signout`
 
 export const editIdeaRouteParams = getRouteParams({ ideaNick: true })
 export type EditIdeaRouteParams = typeof editIdeaRouteParams
 export const getEditIdeaRoute = ({ ideaNick }: EditIdeaRouteParams) => `/ideas/${ideaNick}/edit`
+
+export const getSignUpRoute = () => `/signup`
+export const getSignInRoute = () => `/signin`
+export const getSignOutRoute = () => `/signout`
+export const getEditProfileRoute = () => `/edit-profile`

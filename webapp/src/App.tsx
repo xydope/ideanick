@@ -4,6 +4,7 @@ import {
   editIdeaRouteParams,
   getAllIdeasRoute,
   getEditIdeaRoute,
+  getEditProfileRoute,
   getNewIdeaRoute,
   getSignInRoute,
   getSignOutRoute,
@@ -14,6 +15,7 @@ import {
 import { AllIdeasPage } from './pages/ideas/AllIdeasPage'
 import { AppContextProvider } from './lib/ctx'
 import { EditIdeaPage } from './pages/ideas/EditIdeaPage'
+import { EditProfilePage } from './pages/auth/EditProfilePage'
 import { Layout } from './components/Layout'
 import { NewIdeaPage } from './pages/ideas/NewIdeaPage'
 import { NotFoundPage } from './pages/other/NotFoundPage'
@@ -37,6 +39,7 @@ export const App = () => {
               <Route path={getSignUpRoute()} element={<SignUpPage />} />
               <Route path={getSignInRoute()} element={<SignInPage />} />
               <Route path={getEditIdeaRoute(editIdeaRouteParams)} element={<EditIdeaPage />} />
+              <Route path={getEditProfileRoute()} element={<EditProfilePage />} />
               <Route path="*" element={<NotFoundPage />} />
             </Route>
           </Routes>
