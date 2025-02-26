@@ -13,7 +13,7 @@ export const NewIdeaPage = withPageWrapper({
   authorizedOnly: true,
 })(() => {
   const createIdea = trpc.createIdea.useMutation()
-  const { formik, buttonProps, alertProps } = useForm({
+  const { formik, buttonProps, alertProps, handleChange, handleBlur } = useForm({
     initialValues: {
       name: '',
       nick: '',
@@ -28,13 +28,7 @@ export const NewIdeaPage = withPageWrapper({
     successMessage: 'Idea created',
     showValidationAlert: true,
   })
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    formik.setFieldValue(e.target.name, e.target.value)
-  }
-  const handleBlur = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    formik.setFieldTouched(e.target.name)
-  }
+  
   return (
     <Segment title="New Idea">
       <form

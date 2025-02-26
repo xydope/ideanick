@@ -14,7 +14,7 @@ export const SignInPage = withPageWrapper({
 })(() => {
   const trpcUtils = trpc.useUtils()
   const signIn = trpc.signIn.useMutation()
-  const { formik, buttonProps, alertProps } = useForm({
+  const { formik, buttonProps, alertProps, handleChange, handleBlur } = useForm({
     initialValues: {
       nick: '',
       password: '',
@@ -28,12 +28,6 @@ export const SignInPage = withPageWrapper({
     resetOnSuccess: false,
   })
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    formik.setFieldValue(e.target.name, e.target.value)
-  }
-  const handleBlur = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    formik.setFieldTouched(e.target.name)
-  }
   return (
     <Segment title="Sign Up">
       <form onSubmit={formik.handleSubmit}>

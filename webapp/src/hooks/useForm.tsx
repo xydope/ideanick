@@ -42,6 +42,12 @@ export const useForm = <TZodSchema extends z.ZodTypeAny>({
       }
     },
   })
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    formik.setFieldValue(e.target.name, e.target.value)
+  }
+  const handleBlur = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    formik.setFieldTouched(e.target.name)
+  }
 
   const alertProps = useMemo<AlertProps>(() => {
     if (submittingError) {
@@ -82,5 +88,7 @@ export const useForm = <TZodSchema extends z.ZodTypeAny>({
     formik,
     alertProps,
     buttonProps,
+    handleChange,
+    handleBlur,
   }
 }

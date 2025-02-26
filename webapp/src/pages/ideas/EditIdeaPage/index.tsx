@@ -30,7 +30,7 @@ export const EditIdeaPage = withPageWrapper({
 })(({ idea }) => {
   const navigate = useNavigate()
   const updateIdea = trpc.updateIdea.useMutation()
-  const { formik, buttonProps, alertProps } = useForm({
+  const { formik, buttonProps, alertProps, handleChange, handleBlur } = useForm({
     initialValues: pick(idea, ['name', 'nick', 'description', 'text']),
     validationSchema: zUpdateIdeaTrpcInput.omit({ ideaId: true }),
     onSubmit: async (values) => {
@@ -39,13 +39,6 @@ export const EditIdeaPage = withPageWrapper({
     },
     successMessage: false,
   })
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    formik.setFieldValue(e.target.name, e.target.value)
-  }
-  const handleBlur = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    formik.setFieldTouched(e.target.name)
-  }
 
   return (
     <Segment title={`Edit Idea: ${idea.nick}`}>
