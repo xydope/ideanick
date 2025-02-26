@@ -2,6 +2,7 @@ import { type AppContext, useAppContext } from './ctx'
 import React, { useEffect } from 'react'
 import type { UseTRPCQueryResult, UseTRPCQuerySuccessResult } from '@trpc/react-query/shared'
 // import { UseQueryResult } from '@tanstack/react-query'
+import { ErrorPageComponent } from '../components/ErrorPageComponent'
 import { NotFoundPage } from '../pages/other/NotFoundPage'
 import { getAllIdeasRoute } from './routes'
 import { useNavigate } from 'react-router-dom'
@@ -21,9 +22,12 @@ const checkAccessFn = <T,>(value: T, message?: string) => {
   }
 }
 
+class GetAuthorizedMeError extends Error {}
+
 type SetPropsProps<TQueryResult extends QueryResult | undefined> = HelperProps<TQueryResult> & {
   checkExists: typeof checkExistsFn
   checkAccess: typeof checkAccessFn
+  getAuthorizedMe: (message?: string) => NonNullable<AppContext['me']>
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -113,15 +117,30 @@ const PageWrapper = <TProps extends Props, TQueryResult extends QueryResult | un
     }
   }
 
+  const getAuthorizedMe = (message?: string) => {
+    if (!ctx.me) {
+      throw new GetAuthorizedMeError(message)
+    }
+    return ctx.me
+  }
+
   try {
-    const props = setProps?.({ ...helperProps, checkExists: checkExistsFn, checkAccess: checkAccessFn }) as TProps
+    const props = setProps?.({
+      ...helperProps,
+      checkExists: checkExistsFn,
+      checkAccess: checkAccessFn,
+      getAuthorizedMe,
+    }) as TProps
     return <Page {...props} />
   } catch (error) {
     if (error instanceof CheckExistsError) {
-      return <NotFoundPage title={checkExistsTitle} message={error.message || checkExistsMessage} />
+      return <ErrorPageComponent title={checkExistsTitle} message={error.message || checkExistsMessage} />
     }
     if (error instanceof CheckAccessError) {
-      return <NotFoundPage title={checkAccessTitle} message={error.message || checkAccessMessage} />
+      return <ErrorPageComponent title={checkAccessTitle} message={error.message || checkAccessMessage} />
+    }
+    if (error instanceof GetAuthorizedMeError) {
+      return <ErrorPageComponent title={authorizedOnlyTitle} message={error.message || authorizedOnlyMessage} />
     }
     throw error
   }

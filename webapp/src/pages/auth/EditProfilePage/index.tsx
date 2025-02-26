@@ -10,8 +10,8 @@ import { zUpdateProfileTrpcInput } from '@ideanick/backend/src/router/auth/updat
 
 export const EditProfilePage = withPageWrapper({
   authorizedOnly: true,
-  setProps: ({ ctx }) => ({
-    me: ctx.me!,
+  setProps: ({ getAuthorizedMe }) => ({
+    me: getAuthorizedMe(),
   }),
 })(({ me }) => {
   const trpcUtils = trpc.useContext()
