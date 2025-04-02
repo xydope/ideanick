@@ -3,6 +3,7 @@ import React, { useEffect } from 'react'
 import type { UseTRPCQueryResult, UseTRPCQuerySuccessResult } from '@trpc/react-query/shared'
 // import { UseQueryResult } from '@tanstack/react-query'
 import { ErrorPageComponent } from '../components/ErrorPageComponent'
+import { Loader } from '../components/Loader'
 import { NotFoundPage } from '../pages/other/NotFoundPage'
 import { getAllIdeasRoute } from './routes'
 import { useNavigate } from 'react-router-dom'
@@ -90,7 +91,7 @@ const PageWrapper = <TProps extends Props, TQueryResult extends QueryResult | un
   }, [redirectNeeded, navigate])
 
   if (queryResult?.isLoading || queryResult?.isFetching || redirectNeeded) {
-    return <p>Loading...</p>
+    return <Loader type='page'/>
   }
 
   if (queryResult?.isError) {

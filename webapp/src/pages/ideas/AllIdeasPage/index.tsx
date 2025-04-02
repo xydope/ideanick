@@ -1,6 +1,7 @@
 import { Alert } from '../../../components/Alert'
 import InfiniteScroll from 'react-infinite-scroller'
 import { Link } from 'react-router-dom'
+import { Loader } from '../../../components/Loader'
 import { Segment } from '../../../components/Segment'
 import css from './index.module.scss'
 import { getViewIdeaRoute } from '../../../lib/routes'
@@ -23,7 +24,7 @@ export const AllIdeasPage = () => {
   return (
     <Segment title={'All Ideas'}>
       {isLoading || isRefetching ? (
-        <div>Loading...</div>
+        <Loader type="section" />
       ) : isError ? (
         <Alert color="red">{error.message}</Alert>
       ) : (
@@ -35,11 +36,7 @@ export const AllIdeasPage = () => {
             }
           }}
           hasMore={hasNextPage}
-          loader={
-            <div className={css.more} key="loader">
-              Loading...
-            </div>
-          }
+          loader={<Loader type="section" />}
           getScrollParent={() => layoutContentElRef.current}
           useWindow={(layoutContentElRef.current && getComputedStyle(layoutContentElRef.current).overflow) !== 'auto'}
         >
