@@ -3,6 +3,7 @@ import { createIdeaTrpcRoute } from './ideas/createIdea'
 import { getIdeaTrpcRoute } from './ideas/getIdea'
 import { getIdeasTrpcRoute } from './ideas/getIdeas'
 import { getMeTrpcRoute } from './auth/getMe'
+import { setIdeaLikeTrpcRoute } from './ideas/setIdeaLike'
 import { signInTrpcRoute } from './auth/signIn'
 import { signUpTrpcRoute } from './auth/signUp'
 import { updateIdeaTrpcRoute } from './ideas/updateIdea'
@@ -10,8 +11,8 @@ import { updatePasswordTrpcRoute } from './auth/updatePassword'
 import { updateProfileTrpcRoute } from './auth/updateProfile'
 // @endindex
 /* eslint-disable sort-imports */
-import { trpc } from '../lib/trpc'
 import type { inferRouterInputs, inferRouterOutputs } from '@trpc/server'
+import { trpc } from '../lib/trpc'
 
 export const trpcRouter = trpc.router({
   // @index('./**/index.ts', f => `${f.path.split('/').slice(0, -1).pop()}: ${f.path.split('/').slice(0, -1).pop()}TrpcRoute,`)
@@ -23,6 +24,7 @@ export const trpcRouter = trpc.router({
   createIdea: createIdeaTrpcRoute,
   getIdea: getIdeaTrpcRoute,
   getIdeas: getIdeasTrpcRoute,
+  setIdeaLike: setIdeaLikeTrpcRoute,
   updateIdea: updateIdeaTrpcRoute,
   // @endindex
 })

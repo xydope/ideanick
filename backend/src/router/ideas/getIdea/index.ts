@@ -1,11 +1,11 @@
-// import { ideas } from '../../lib/ideas'
+import _ from 'lodash'
 import { trpc } from '../../../lib/trpc'
 import { z } from 'zod'
 
 export const getIdeaTrpcRoute = trpc.procedure
   .input(z.object({ ideaNick: z.string() }))
   .query(async ({ ctx, input }) => {
-    const idea = await ctx.prisma.idea.findUnique({
+    const rawIdea = await ctx.prisma.idea.findUnique({
       where: {
         nick: input.ideaNick,
       },
@@ -17,9 +17,25 @@ export const getIdeaTrpcRoute = trpc.procedure
             name: true,
           },
         },
+        ideasLikes: {
+          select: {
+            id: true,
+          },
+          where: {
+            userId: ctx.me?.id,
+          },
+        },
+        _count: {
+          select: {
+            ideasLikes: true,
+          },
+        },
       },
     })
-    return { idea }
 
-    // const idea = ideas.find((idea) => idea.nick === input.ideaNick)
+    const isLikedByMe = !!rawIdea?.ideasLikes.length
+    const likesCount = rawIdea?._count.ideasLikes || 0
+    const idea = rawIdea && { ..._.omit(rawIdea, ['ideasLikes', '_count']), isLikedByMe, likesCount }
+
+    return { idea }
   })

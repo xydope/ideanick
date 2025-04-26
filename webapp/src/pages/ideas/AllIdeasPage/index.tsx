@@ -53,7 +53,9 @@ export const AllIdeasPage = () => {
                         {idea.name}
                       </Link>
                     }
-                  />
+                  >
+                    Likes: {idea.likesCount}
+                  </Segment>
                 </div>
               ))}
           </div>
