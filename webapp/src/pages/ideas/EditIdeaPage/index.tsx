@@ -6,6 +6,7 @@ import { FormItems } from '../../../components/FormItems'
 import { Input } from '../../../components/Input'
 import { Segment } from '../../../components/Segment'
 import { TextArea } from '../../../components/TextArea'
+import { canEditIdea } from '@ideanick/backend/src/utils/can'
 import pick from 'lodash/pick'
 import { trpc } from '../../../lib/trpc'
 import { useForm } from '../../../hooks/useForm'
@@ -22,7 +23,7 @@ export const EditIdeaPage = withPageWrapper({
   },
   setProps: ({ queryResult, ctx, checkExists, checkAccess }) => {
     const idea = checkExists(queryResult.data.idea, 'Idea not found')
-    checkAccess(ctx.me?.id === idea.authorId, 'An idea can only be edited by the author')
+    checkAccess(canEditIdea(ctx.me, idea), 'An idea can only be edited by the author')
     return {
       idea,
     }

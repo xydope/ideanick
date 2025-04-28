@@ -32,7 +32,12 @@ export default tseslint.config(
         {
           patterns: [
             {
-              group: ['@ideanick/backend/**', '!@ideanick/backend/**/', '!@ideanick/backend/**/input'],
+              group: [
+                '@ideanick/backend/**',
+                '!@ideanick/backend/**/',
+                '!@ideanick/backend/**/input',
+                '!@ideanick/backend/src/utils/can',
+              ],
               allowTypeImports: true,
               message: 'Only types and input schemas are allowed to be imported from backend workspace',
             },
