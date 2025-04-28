@@ -7,7 +7,7 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string
   value: string
   error?: string
-  maxWidth?: number
+  maxWidth?: number | string
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
 }
 
