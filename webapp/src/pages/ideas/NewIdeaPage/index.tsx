@@ -28,7 +28,7 @@ export const NewIdeaPage = withPageWrapper({
     successMessage: 'Idea created',
     showValidationAlert: true,
   })
-  
+
   return (
     <Segment title="New Idea">
       <form

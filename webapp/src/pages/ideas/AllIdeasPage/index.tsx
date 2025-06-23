@@ -1,4 +1,5 @@
 import { Alert } from '../../../components/Alert'
+import { Helmet } from 'react-helmet-async'
 import InfiniteScroll from 'react-infinite-scroller'
 import { Input } from '../../../components/Input'
 import { Link } from 'react-router-dom'
@@ -35,6 +36,9 @@ export const AllIdeasPage = () => {
 
   return (
     <Segment title={'All Ideas'}>
+      <Helmet>
+        <title>All Ideas - Ideanick</title>
+      </Helmet>
       <div className={css.filter}>
         <Input
           maxWidth={'100%'}
@@ -67,7 +71,7 @@ export const AllIdeasPage = () => {
             {data?.pages
               .flatMap((page) => page.ideas)
               .map((idea) => (
-                <div className={css.idea} key={idea.nick}>
+                <div className={css.idea} key={idea.id}>
                   <Segment
                     size={2}
                     description={idea.description}

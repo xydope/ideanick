@@ -43,6 +43,7 @@ export const EditIdeaPage = withPageWrapper({
 
   return (
     <Segment title={`Edit Idea: ${idea.nick}`}>
+
       <form onSubmit={formik.handleSubmit}>
         <FormItems>
           <Input
